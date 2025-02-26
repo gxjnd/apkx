@@ -1,21 +1,96 @@
 
 
 
+
 [
     {
-        "name": "GitHub",
-        "url": "https://github.com",
-        "description": "A platform for version control and collaboration."
+        "name": "Alipay",
+        "url": "aliplay.apk",
+        "description": "Alipay mobile payment application."
     },
     {
-        "name": "GitLab",
-        "url": "https://gitlab.com",
-        "description": "A web-based DevOps lifecycle tool."
+        "name": "Colab",
+        "url": "colab.apk",
+        "description": "Google Colab application."
     },
     {
-        "name": "Bitbucket",
-        "url": "https://bitbucket.org",
-        "description": "A Git repository management solution."
+        "name": "Colab 1",
+        "url": "colab1.apk",
+        "description": "Another version of Google Colab."
+    },
+    {
+        "name": "EF",
+        "url": "ef.apk",
+        "description": "EF education application."
+    },
+    {
+        "name": "Extract",
+        "url": "extract.apk",
+        "description": "File extraction tool."
+    },
+    {
+        "name": "GPSX",
+        "url": "gpsx.apk",
+        "description": "GPS tracking application."
+    },
+    {
+        "name": "IJ",
+        "url": "ij.apk",
+        "description": "IJ application."
+    },
+    {
+        "name": "IJ 2",
+        "url": "ij2.apk",
+        "description": "Second version of IJ application."
+    },
+    {
+        "name": "Install",
+        "url": "install.apk",
+        "description": "Application installer."
+    },
+    {
+        "name": "Lock",
+        "url": "lock.apk",
+        "description": "Application lock tool."
+    },
+    {
+        "name": "Shot",
+        "url": "shot.apk",
+        "description": "Screenshot application."
+    },
+    {
+        "name": "Translate",
+        "url": "translate.apk",
+        "description": "Translation application."
+    },
+    {
+        "name": "WB",
+        "url": "wb.apk",
+        "description": "WB application."
+    },
+    {
+        "name": "WB 1",
+        "url": "wb1.apk",
+        "description": "First version of WB application."
+    },
+    {
+        "name": "WB 2",
+        "url": "wb2.apk",
+        "description": "Second version of WB application."
+    },
+    {
+        "name": "WeChat",
+        "url": "wechat.apk",
+        "description": "WeChat messaging application."
+    },
+    {
+        "name": "WeChat Black",
+        "url": "wechat_black.apk",
+        "description": "Modified version of WeChat."
+    },
+    {
+        "name": "XT",
+        "url": "xt.apk",
+        "description": "XT application."
     }
 ]
-
