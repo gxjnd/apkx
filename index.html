@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链接集合</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .link-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .link {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .link:hover {
+            background: #f0f0f0;
+        }
+        .link h2 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .link p {
+            margin: 5px 0 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>链接集合</h1>
+    <div class="link-container" id="link-container"></div>
+
+    <script>
+        fetch('url.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('link-container');
+                data.forEach(item => {
+                    const linkDiv = document.createElement('div');
+                    linkDiv.classList.add('link');
+                    linkDiv.innerHTML = `
+                        <h2><a href="${item.url}" target="_blank">${item.name}</a></h2>
+                        <p>${item.description}</p>
+                    `;
+                    container.appendChild(linkDiv);
+                });
+            })
+            .catch(error => console.error('Error loading JSON:', error));
+    </script>
+</body>
+</html>
