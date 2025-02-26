@@ -1,17 +1,16 @@
 
 
 
-
 [
     {
         "name": "Alipay",
         "url": "aliplay.apk",
-        "description": "Alipay mobile payment application."
+        "description": "支付宝扫一扫"
     },
     {
         "name": "Colab",
         "url": "colab.apk",
-        "description": "Google Colab application."
+        "description": "Colab webview,基于kotlin webview"
     },
     {
         "name": "Colab 1",
@@ -21,22 +20,22 @@
     {
         "name": "EF",
         "url": "ef.apk",
-        "description": "EF education application."
+        "description": "代码编辑器"
     },
     {
         "name": "Extract",
         "url": "extract.apk",
-        "description": "File extraction tool."
+        "description": " 一些提取的功能"
     },
     {
         "name": "GPSX",
         "url": "gpsx.apk",
-        "description": "GPS tracking application."
+        "description": "地图辅助软件"
     },
     {
         "name": "IJ",
         "url": "ij.apk",
-        "description": "IJ application."
+        "description": "IJ poe ,基于Cordova"
     },
     {
         "name": "IJ 2",
@@ -46,17 +45,17 @@
     {
         "name": "Install",
         "url": "install.apk",
-        "description": "Application installer."
+        "description": "Application installer.基于kotlin 和py"
     },
     {
         "name": "Lock",
         "url": "lock.apk",
-        "description": "Application lock tool."
+        "description": "息屏.基于kotlin 和py"
     },
     {
         "name": "Shot",
         "url": "shot.apk",
-        "description": "Screenshot application."
+        "description": "小工具 application."
     },
     {
         "name": "Translate",
@@ -66,7 +65,7 @@
     {
         "name": "WB",
         "url": "wb.apk",
-        "description": "WB application."
+        "description": "poe webview基于 kotlin webview."
     },
     {
         "name": "WB 1",
@@ -81,16 +80,16 @@
     {
         "name": "WeChat",
         "url": "wechat.apk",
-        "description": "WeChat messaging application."
+        "description": "WeChat  扫一扫."
     },
     {
         "name": "WeChat Black",
         "url": "wechat_black.apk",
-        "description": "Modified version of WeChat."
+        "description": "WeChat暗黑版本."
     },
     {
         "name": "XT",
         "url": "xt.apk",
-        "description": "XT application."
+        "description": "XT 小工具bug."
     }
 ]
