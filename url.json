@@ -23,6 +23,11 @@
         "description": "代码编辑器"
     },
     {
+        "name": "EF",
+        "url": "Ef2026.apk",
+        "description": "代码编辑器,2026最新"
+    },
+    {
         "name": "Extract",
         "url": "extract.apk",
         "description": " 一些提取的功能"
