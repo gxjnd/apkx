@@ -606,6 +606,20 @@ overflow: hidden;
   align-items: center;
   justify-content:flex-start;
 }
+.buffer-single-item_setstatus_dialog{
+  width:290px;
+  height:45px;
+  background: transparent;
+  margin-left:10px;
+  margin-top:8px;
+  padding:0px;
+    border:1.5px solid black;
+  border-radius:2px;
+  display:flex;
+  flex-direction: row  !important;
+  align-items: center;
+  justify-content:flex-start;
+}
 
 
 
@@ -617,6 +631,15 @@ overflow: hidden;
   margin-right:5px;
   border-bottom:2px dashed black;
 }
+.status_setstatus_dialog{
+ all: unset;
+  width:80px;
+  margin-top:4px;
+  margin-left:5px;
+  margin-right:5px;
+  border-bottom:2px dashed black;
+}
+
 .update_setgroup_dialog {
   all: unset;
   
@@ -649,6 +672,38 @@ overflow: hidden;
   background-color: red;
 }
 
+
+
+.update_setstatus_dialog {
+  all: unset;
+  
+  /* 重置默认样式 */
+  appearance: none;
+  border: none;
+  outline: none;
+  
+  /* 布局与尺寸 */
+  padding: 5px 5px;
+  cursor: pointer;
+  
+  /* 视觉修饰 */
+  background-color: #007bff;
+  color: white;
+  border-radius: 2px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left:auto;
+  margin-right:43px;
+  /* 动画 */
+  transition: background 0.2s ease, transform 0.1s active;
+}
+
+
+.update_setstatus_dialog:active {
+  background-color: red;
+}
+
+
 .oldgroup_setgroup_dialog{
     margin-left: 0px; /* 关键属性：自动吃掉左侧剩余空间 */
   margin-top: 5px; /* 关键属性：自动吃掉左侧剩余空间 */
@@ -666,6 +721,19 @@ overflow: hidden;
     margin-left: 0px; /* 关键属性：自动吃掉左侧剩余空间 */
   margin-top: 5px; /* 关键属性：自动吃掉左侧剩余空间 */
   margin-right: 0px;
+  width:20px;
+  font-size:12px;
+  font-weight:800;
+  background: transparent;
+  transform: scale(1);
+  
+  color:purple;
+  user-select: all;
+}
+.tradeid_setstatus_dialog{
+    margin-left: 70px; /* 关键属性：自动吃掉左侧剩余空间 */
+  margin-top: 5px; /* 关键属性：自动吃掉左侧剩余空间 */
+  display:none;
   width:20px;
   font-size:12px;
   font-weight:800;
@@ -1579,6 +1647,42 @@ group='g2'改为group='g5'
     };
   });
 }
+async updateItemStatus(storeName, itemId, newStatus) {
+  return new Promise((resolve, reject) => {
+    const transaction = this.db.transaction([storeName], "readwrite");
+    const store = transaction.objectStore(storeName);
+
+    // 1. 精准查询目标 ID 的数据
+    const getRequest = store.get(itemId);
+
+    getRequest.onsuccess = () => {
+      const item = getRequest.result;
+      if (!item) {
+        reject(new Error(`未找到 ID 为 ${itemId} 的数据`));
+        return;
+      }
+
+      // 2. 修改 status 字段
+      item.status = newStatus;
+
+      // 3. 将修改后的数据写回数据库
+      const putRequest = store.put(item);
+
+      putRequest.onsuccess = () => {
+        // 成功更新
+        resolve(true);
+      };
+
+      putRequest.onerror = (err) => {
+        reject(new Error("更新失败: " + err.target.error));
+      };
+    };
+
+    getRequest.onerror = (err) => {
+      reject(new Error("查询失败: " + err.target.error));
+    };
+  });
+}
 
 async updateItemdesc(storeName , itemId, newdesc) {
  /*
@@ -1945,6 +2049,21 @@ return '<div class="doingz line_buy"><svg width="20px" height="20px" viewBox="0 
     //  return '<div class="doingz line_sell"><svg fill="#000000" height="20" width="20" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg">...</svg></div>'; // 里面是你的卖SVG
 return '<div class="doingz line_sell">\n\n\n   <svg fill="#000000" height="20" width="20" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" \n\t viewBox="0 0 305.41 305.41" xml:space="preserve">\n<g>\n\t<g>\n\t\t<path d="M297.91,264.381c-1.92,0-3.839-0.732-5.304-2.197l-42.195-42.195c-2.929-2.928-2.929-7.677,0-10.606\n\t\t\tc2.929-2.929,7.678-2.929,10.607,0l42.195,42.195c2.929,2.929,2.929,7.678,0,10.606\n\t\t\tC301.749,263.649,299.829,264.381,297.91,264.381z"/>\n\t</g>\n\t<g>\n\t\t<path d="M260.15,248.79c-3.084,0-5.974-1.916-7.066-4.988l-12.24-34.407c-0.971-2.728-0.284-5.77,1.763-7.817\n\t\t\tc2.049-2.048,5.09-2.732,7.817-1.763l35.795,12.732c3.902,1.388,5.94,5.677,4.553,9.58c-1.389,3.903-5.679,5.938-9.58,4.553\n\t\t\tl-20.926-7.443l6.951,19.538c1.387,3.902-0.65,8.191-4.553,9.58C261.833,248.65,260.984,248.79,260.15,248.79z"/>\n\t</g>\n\t<g>\n\t\t<path d="M132.639,98.788c-8.818,0-15.576,5.006-18.18,12.817h35.535C147.636,103.63,141.336,98.788,132.639,98.788z"/>\n\t\t<path d="M253.583,41.029H11.827C5.306,41.029,0,46.336,0,52.859V164.2c0,6.522,5.306,11.829,11.827,11.829h241.756\n\t\t\tc6.52,0,11.827-5.307,11.827-11.829V52.859C265.41,46.336,260.103,41.029,253.583,41.029z M95.188,133.404\n\t\t\tc-0.453,11.353-10.138,18.969-24.099,18.969c-9.163,0-17.61-3.324-23.786-9.36c-2.963-2.895-3.017-7.643-0.121-10.606\n\t\t\tc2.893-2.962,7.642-3.017,10.605-0.122c3.405,3.328,8.005,5.087,13.302,5.087c2.095,0,8.941-0.328,9.11-4.552\n\t\t\tc0.079-2.095-2.132-3.334-10.753-6.007c-9.073-2.813-22.785-7.065-22.785-22.156c0-12.483,10.12-20.87,25.183-20.87\n\t\t\tc6.641,0,12.91,1.682,18.638,4.998c3.584,2.076,4.808,6.664,2.731,10.249c-2.076,3.585-6.664,4.806-10.249,2.731\n\t\t\tc-3.46-2.004-7.098-2.979-11.12-2.979c-3.062,0-10.183,0.572-10.183,5.87c0,3.283,2.285,4.746,12.228,7.829\n\t\t\tC82.583,115.183,95.722,119.257,95.188,133.404z M158.515,126.606h-44.069c2.596,7.875,9.361,12.924,18.193,12.924\n\t\t\tc6.388,0,11.972-2.243,15.724-6.315c2.807-3.046,7.552-3.239,10.598-0.433c3.046,2.807,3.24,7.552,0.434,10.598\n\t\t\tc-6.626,7.19-16.128,11.15-26.755,11.15c-19.58,0-34.346-15.229-34.346-35.424c0-20.134,14.766-35.317,34.346-35.317\n\t\t\tc19.339,0,33.376,14.853,33.376,35.317C166.015,123.248,162.656,126.606,158.515,126.606z M185.885,147.029\n\t\t\tc0,4.142-3.357,7.5-7.5,7.5c-4.143,0-7.5-3.358-7.5-7.5v-80c0-4.142,3.357-7.5,7.5-7.5c4.143,0,7.5,3.358,7.5,7.5V147.029z\n\t\t\t M217.865,147.029c0,4.142-3.357,7.5-7.5,7.5c-4.143,0-7.5-3.358-7.5-7.5v-80c0-4.142,3.357-7.5,7.5-7.5\n\t\t\tc4.143,0,7.5,3.358,7.5,7.5V147.029z"/>\n\t</g>\n</g>\n</svg>\n   \n\n</div>';
    
+    case "deposit":
+return `<div class="doingz ">
+<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="12" y="19.2" fill="green" font-size="8.8" font-family="Arial, sans-serif" font-weight="900" text-anchor="middle" dominant-baseline="middle">
+充值
+</text></svg>
+</div>
+`; 
+    case "withdraw":
+return `<div class="doingz ">
+<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="12" y="19.2" fill="red" font-size="8.8" font-family="Arial, sans-serif" font-weight="900" text-anchor="middle" dominant-baseline="middle">
+提现
+</text></svg>
+</div>
+`; 
+ 
   
     default:
 return `<div class="doingz ">
@@ -2060,13 +2179,14 @@ let doing = getDoingHtml(data_list[i].doing);
 if (String(data_list[i]?.group).startsWith('g')) {
 
      group=data_list[i].group
-  //  alert(group)
+  let status=data_list[i].status
+  //  alert(status)
       const currentCount = (counts_g.get(group) || 0) + 1;
   // 更新计数器
   counts_g.set(group, currentCount);
   // 返回拼接后的字符串
   //return `${item}-${currentCount}`;
-     let friend=`<div class="tip" data-group_s="${group}" data-gtradeid="${data_list[i].id}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M16 6C14.3432 6 13 7.34315 13 9C13 10.6569 14.3432 12 16 12C17.6569 12 19 10.6569 19 9C19 7.34315 17.6569 6 16 6ZM11 9C11 6.23858 13.2386 4 16 4C18.7614 4 21 6.23858 21 9C21 10.3193 20.489 11.5193 19.6542 12.4128C21.4951 13.0124 22.9176 14.1993 23.8264 15.5329C24.1374 15.9893 24.0195 16.6114 23.5631 16.9224C23.1068 17.2334 22.4846 17.1155 22.1736 16.6591C21.1979 15.2273 19.4178 14 17 14C13.166 14 11 17.0742 11 19C11 19.5523 10.5523 20 10 20C9.44773 20 9.00001 19.5523 9.00001 19C9.00001 18.308 9.15848 17.57 9.46082 16.8425C9.38379 16.7931 9.3123 16.7323 9.24889 16.6602C8.42804 15.7262 7.15417 15 5.50001 15C3.84585 15 2.57199 15.7262 1.75114 16.6602C1.38655 17.075 0.754692 17.1157 0.339855 16.7511C-0.0749807 16.3865 -0.115709 15.7547 0.248886 15.3398C0.809035 14.7025 1.51784 14.1364 2.35725 13.7207C1.51989 12.9035 1.00001 11.7625 1.00001 10.5C1.00001 8.01472 3.01473 6 5.50001 6C7.98529 6 10 8.01472 10 10.5C10 11.7625 9.48013 12.9035 8.64278 13.7207C9.36518 14.0785 9.99085 14.5476 10.5083 15.0777C11.152 14.2659 11.9886 13.5382 12.9922 12.9945C11.7822 12.0819 11 10.6323 11 9ZM3.00001 10.5C3.00001 9.11929 4.1193 8 5.50001 8C6.88072 8 8.00001 9.11929 8.00001 10.5C8.00001 11.8807 6.88072 13 5.50001 13C4.1193 13 3.00001 11.8807 3.00001 10.5Z" fill="#000000"></path> </g></svg></div>`
+     let friend=`<div class="tip" data-group_s="${group}" data-status_s="${status}" data-gtradeid="${data_list[i].id}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M16 6C14.3432 6 13 7.34315 13 9C13 10.6569 14.3432 12 16 12C17.6569 12 19 10.6569 19 9C19 7.34315 17.6569 6 16 6ZM11 9C11 6.23858 13.2386 4 16 4C18.7614 4 21 6.23858 21 9C21 10.3193 20.489 11.5193 19.6542 12.4128C21.4951 13.0124 22.9176 14.1993 23.8264 15.5329C24.1374 15.9893 24.0195 16.6114 23.5631 16.9224C23.1068 17.2334 22.4846 17.1155 22.1736 16.6591C21.1979 15.2273 19.4178 14 17 14C13.166 14 11 17.0742 11 19C11 19.5523 10.5523 20 10 20C9.44773 20 9.00001 19.5523 9.00001 19C9.00001 18.308 9.15848 17.57 9.46082 16.8425C9.38379 16.7931 9.3123 16.7323 9.24889 16.6602C8.42804 15.7262 7.15417 15 5.50001 15C3.84585 15 2.57199 15.7262 1.75114 16.6602C1.38655 17.075 0.754692 17.1157 0.339855 16.7511C-0.0749807 16.3865 -0.115709 15.7547 0.248886 15.3398C0.809035 14.7025 1.51784 14.1364 2.35725 13.7207C1.51989 12.9035 1.00001 11.7625 1.00001 10.5C1.00001 8.01472 3.01473 6 5.50001 6C7.98529 6 10 8.01472 10 10.5C10 11.7625 9.48013 12.9035 8.64278 13.7207C9.36518 14.0785 9.99085 14.5476 10.5083 15.0777C11.152 14.2659 11.9886 13.5382 12.9922 12.9945C11.7822 12.0819 11 10.6323 11 9ZM3.00001 10.5C3.00001 9.11929 4.1193 8 5.50001 8C6.88072 8 8.00001 9.11929 8.00001 10.5C8.00001 11.8807 6.88072 13 5.50001 13C4.1193 13 3.00001 11.8807 3.00001 10.5Z" fill="#000000"></path> </g></svg></div>`
      var fraction_g=`
 
 <span class="fraction_g"><sup class="numerator">${currentCount}</sup>
@@ -2475,7 +2595,7 @@ if (ele_dialog.classList.contains('active')) {
 }
 
 
-function group_dialog_step(group_s,tradeid) {
+function group_dialog_step(group_s,tradeid,status_s) {
  //  alert(56)
     const dialog = $$$("in_btcsystem_dialogz");
   
@@ -2508,42 +2628,75 @@ const maxVal = Math.max(
         `;
 
         list_container.appendChild(div);
+
+
+
+        const div2 = document.createElement('div');
+        div2.className = 'buffer-single-item_setstatus_dialog';
+        //div.dataset.imgid = item.imgid;           // 推荐用 dataset 存储 id
+
+        div2.innerHTML = `
+            <input type="text" class="status_setstatus_dialog" value="${status_s||''}" />
+            <div class="tradeid_setstatus_dialog">${tradeid}</div>
+            <button class="update_setstatus_dialog">save</button>
+        `;
+
+        list_container.appendChild(div2);
+
+
 //alert(10)
     // 2. 事件委托（推荐方式，点击事件统一放在外面）
-    list_container.addEventListener('click', async function (e) {
-        const itemDiv = e.target.closest('.buffer-single-item_setgroup_dialog');
-        if (!itemDiv) return;
-
-        const setgroupInput = itemDiv.querySelector('.group_setgroup_dialog');
-
-        // ==================== 点击 Save ====================
+list_container.addEventListener('click', async function (e) {
+    // ==================== Group 保存逻辑 ====================
+    const groupItemDiv = e.target.closest('.buffer-single-item_setgroup_dialog');
+    if (groupItemDiv) {
         if (e.target.classList.contains('update_setgroup_dialog')) {
-            const newDescription = setgroupInput.value.trim()||"";
-          //  alert(newDescription)
-const currentTradeId = itemDiv.querySelector('.tradeid_setgroup_dialog').innerText.trim();
+            const setgroupInput = groupItemDiv.querySelector('.group_setgroup_dialog');
+            const newDescription = setgroupInput.value.trim() || "";
+            const currentTradeId = groupItemDiv.querySelector('.tradeid_setgroup_dialog').innerText.trim();
 
-   //     alert(`Input: ${newDescription}\nTradeID: ${currentTradeId}`);
-          try {
-      // 直接调用 updateItemdesc
-      let res=await manager.updateItemGroup('1', Number(currentTradeId), newDescription);   // item.text1 作为 newdesc
-    //alert(JSON.stringify(res))
-    if(res){
-            var ele_dialog=$$$('in_btcsystem_dialogz')
-if (ele_dialog.classList.contains('active')) {
-        ele_dialog.classList.remove('active');
-    }
-      get_all()
-    }
-    } catch (err) {
-
-      alert(err.message )
-    }  
-            // 在这里调用你的保存函数
-            // savesetgroup(imgid, newDescription);
+            try {
+                let res = await manager.updateItemGroup('1', Number(currentTradeId), newDescription);
+                if (res) {
+                    var ele_dialog = $$$('in_btcsystem_dialogz');
+                    if (ele_dialog.classList.contains('active')) {
+                        ele_dialog.classList.remove('active');
+                    }
+                    get_all();
+                }
+            } catch (err) {
+                alert(err.message);
+            }
         }
+        return;
+    }
 
-        // ==================== 点击 Delete ====================
-    });
+    // ==================== Status 保存逻辑 ====================
+    const statusItemDiv = e.target.closest('.buffer-single-item_setstatus_dialog');
+    if (statusItemDiv) {
+        if (e.target.classList.contains('update_setstatus_dialog')) {
+            const setstatusInput = statusItemDiv.querySelector('.status_setstatus_dialog');
+            const newStatus = setstatusInput.value.trim() || "";
+            const currentTradeId = statusItemDiv.querySelector('.tradeid_setstatus_dialog').innerText.trim();
+
+            try {
+                // 请根据实际接口名称调整方法名，例如 updateItemStatus
+                let res = await manager.updateItemStatus('1', Number(currentTradeId), newStatus);
+                if (res) {
+                  //alert(8)
+                    var ele_dialog = $$$('in_btcsystem_dialogz');
+                    if (ele_dialog.classList.contains('active')) {
+                        ele_dialog.classList.remove('active');
+                    }
+                    get_all();
+                }
+            } catch (err) {
+                alert(err.message);
+            }
+        }
+        return;
+    }
+});
 
      $$$('del_dialogz').onclick=function (){
       var ele_dialog=$$$('in_btcsystem_dialogz')
@@ -3118,6 +3271,7 @@ requestAnimationFrame(() => {
    else{ if(e.target.classList.contains('tip')) {
  // alert(8)
  let gs=e.target.dataset.group_s
+ let status_s=e.target.dataset.status_s
    let tradeid=e.target.dataset.gtradeid
    //000
     let ele_dialog=$$$('in_btcsystem_dialogz')
@@ -3126,7 +3280,7 @@ requestAnimationFrame(() => {
     }
   
  
-  group_dialog_step(gs,tradeid)
+  group_dialog_step(gs,tradeid,status_s)
   }
     
    } 
